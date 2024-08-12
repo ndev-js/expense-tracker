@@ -2,15 +2,18 @@ import express from "express";
 import Config from "./config/index.js";
 import Database from "./DB/index.js";
 import chalk from "chalk";
+import AppRoute from "./routes/index.js";
+import bodyParser from "body-parser";
 const app = express();
-
+app.use(bodyParser.json());
 const startServer = async () => {
   try {
     const config = Config.getInstance();
     const db = Database.getInstance();
+
     console.log(db);
     const { dbHost, nodeEnv, dbName, dbUrl, appPort } = config;
-
+    app.use(AppRoute);
     console.log(
       chalk.yellow(`App Configurations:🔧 \n
         NodeEnvironment ---> ${nodeEnv} \n 

@@ -1,0 +1,13 @@
+2024-08-12T08:11:55.488Z [info]: Users fetched successfully
+2024-08-12T10:57:36.861Z [error]: Error creating user internal server Error
+2024-08-12T10:58:12.897Z [error]: Error creating user internal server Error
+2024-08-12T11:09:12.947Z [error]: Error creating user Cannot read properties of undefined (reading 'username')
+2024-08-12T11:11:26.047Z [error]: Error creating user internal server Error
+2024-08-12T11:11:55.687Z [info]: User created successfully
+2024-08-12T11:11:55.689Z [error]: Error creating user User created successfully
+2024-08-12T11:14:17.616Z [info]: Users fetched successfully
+2024-08-12T11:16:06.586Z [error]: Error creating user User already exists with this username
+2024-08-12T11:16:54.854Z [error]: Error creating user User already exists with this username
+2024-08-12T11:17:29.731Z [error]: Error creating user User already exists with this username
+2024-08-12T11:20:45.970Z [error]: Error creating user User already exists with this username
+2024-08-12T11:20:50.175Z [error]: Error creating user User already exists with this email
