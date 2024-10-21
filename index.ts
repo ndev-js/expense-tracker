@@ -1,19 +1,20 @@
 import express from "express";
-import Config from "./config/index.js";
-import Database from "./DB/index.js";
-import chalk from "chalk";
-import AppRoute from "./routes/index.js";
+import Config from "./src/config/index";
+import Database from "./src/DB/index";
+import AppRoute from "./src/routes/index";
 import bodyParser from "body-parser";
 const app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const startServer = async () => {
   try {
+    const chalk = (await import("chalk")).default;
     const config = Config.getInstance();
     const db = Database.getInstance();
-
+    const AppRouterPrefix = "/api";
     console.log(db);
     const { dbHost, nodeEnv, dbName, dbUrl, appPort } = config;
-    app.use(AppRoute);
+    app.use(AppRouterPrefix, AppRoute);
     console.log(
       chalk.yellow(`App Configurations:🔧 \n
         NodeEnvironment ---> ${nodeEnv} \n 
@@ -31,9 +32,7 @@ const startServer = async () => {
 
     app.listen(config.appPort, () => {
       console.log(chalk.greenBright("server started successfully ✅ "));
-      console.log(
-        chalk.greenBright(`server started At 🌐  http:localhost:${appPort} `)
-      );
+      console.log(chalk.greenBright(`server started At 🌐  http://localhost:${appPort} `));
     });
   } catch (error) {
     console.error(`Error Starting the Server 😡: ${error} `);

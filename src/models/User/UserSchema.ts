@@ -37,7 +37,7 @@ userSchema.pre<UserModelI>("save", async function (next) {
     const salt = await bcrypt.genSalt(SALT_ROUNDS);
     this.password = await bcrypt.hash(this.password, salt);
     next();
-  } catch (err) {
+  } catch (err: any) {
     next(err);
   }
 });

@@ -1,50 +1,9 @@
-// import { Request, Response } from "express";
-// import { Logger } from "../../utils/log/Logger.js"; // Adjust import as per your file structure
-// import AppError from "../../utils/ErrorHandler.js";
-// import UserService from "../../services/User/User.Service.js";
-// import winston from "winston";
-// export default class UserController {
-//   private userService: UserService;
-//   private logger: Logger; // Declare logger as type Logger
-
-//   constructor() {
-//     this.userService = new UserService();
-//     this.logger = new Logger({
-//       level: "error",
-//       format: winston.format.json(),
-//       transports: [new winston.transports.File({ filename: "error.log" })],
-//     });
-//   }
-
-//   async getAllUsers(req: Request, res: Response): Promise<any> {
-//     try {
-//       const users = await this.userService.GetAllUsers();
-//       this.logger.info("users fetched successfully", users);
-//       res.json({
-//         success: true,
-//         message: "users fetched successfully",
-//         users: users,
-//       });
-//     } catch (error) {
-//       // Ensure this.logger is properly initialized before using it
-//       if (this.logger) {
-//         this.logger.error("error", error);
-//       } else {
-//         console.error("Logger is not initialized:", error);
-//       }
-//       throw new AppError(error.message, 500);
-//     }
-//   }
-// }
-
-// UserController.ts
-
 import { Request, Response } from "express";
-import { Logger } from "../../utils/log/Logger.js"; // Adjust import path as per your project structure
-import AppError from "../../utils/ErrorHandler.js";
-import UserService from "../../services/User/User.Service.js";
+import { Logger } from "../../utils/log/Logger"; // Adjust import path as per your project structure
+import AppError from "../../utils/ErrorHandler";
+import UserService from "../../services/User/User.Service";
 import winston from "winston";
-import { UserI } from "../../interfaces/User/UserType.js";
+import { UserI } from "../../interfaces/User/UserType";
 
 export default class UserController {
   private userService: UserService;
@@ -62,10 +21,7 @@ export default class UserController {
           return `${timestamp} [${level}]: ${message}`;
         })
       ),
-      transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({ filename: "combined.log" }),
-      ],
+      transports: [new winston.transports.Console(), new winston.transports.File({ filename: "combined.log" })],
     });
   }
 
@@ -78,7 +34,7 @@ export default class UserController {
         message: "Users fetched successfully",
         users,
       });
-    } catch (error) {
+    } catch (error: any) {
       if (this.logger) {
         this.logger.error("Error fetching users", error);
       } else {
@@ -103,9 +59,11 @@ export default class UserController {
       if (user.data) {
         this.logger.info("User created successfully", { user });
         res.json(user);
+      } else {
+        const { status, message, error } = user;
+        this.logger.error("Error creating user:", { error });
+        res.status(status || 500).json({ message, error });
       }
-      user.status === 400 && res.json(user);
-      this.logger.error("Error creating user", user);
     } catch (error) {
       console.log(error);
       this.logger.error("Error creating user", error);

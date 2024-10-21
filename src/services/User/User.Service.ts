@@ -1,7 +1,7 @@
-import { ResponseI } from "../../interfaces/Res/ResponseType.js";
-import { createUserPayloadI, UserI } from "../../interfaces/User/UserType.js";
-import { User } from "../../models/User/UserSchema.js";
-import ResponseService from "../../utils/res/ResponseService.js";
+import { ResponseI } from "../../interfaces/Res/ResponseType";
+import { createUserPayloadI, UserI } from "../../interfaces/User/UserType";
+import { User } from "../../models/User/UserSchema";
+import ResponseService from "../../utils/res/ResponseService";
 
 class UserService {
   async createUser(Payload: createUserPayloadI): Promise<ResponseI> {
@@ -14,9 +14,7 @@ class UserService {
 
       if (checkUser) {
         if (checkUser.username === Payload.username) {
-          return ResponseService.error(
-            "User already exists with this username"
-          );
+          return ResponseService.error("User already exists with this username");
         }
         if (checkUser.email) {
           return ResponseService.error("User already exists with this email");
@@ -26,11 +24,8 @@ class UserService {
       const saveUser = await user.save();
 
       return ResponseService.success("User created successfully", saveUser);
-    } catch (error) {
-      return ResponseService.internalServerError(
-        "internal server Error",
-        error.message
-      );
+    } catch (error: any) {
+      return ResponseService.internalServerError("internal server Error", error.message);
     }
   }
 
@@ -38,7 +33,7 @@ class UserService {
     try {
       const users = await User.find();
       return users;
-    } catch (error) {
+    } catch (error: any) {
       return error;
     }
   }

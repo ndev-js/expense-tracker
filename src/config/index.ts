@@ -1,8 +1,7 @@
 import dotenv from "dotenv";
 import path from "path";
-import { fileURLToPath } from "url";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
+// __filename and __dirname are available in CommonJS
 const env = process.env.NODE_ENV || "development";
 dotenv.config({
   path: path.resolve(__dirname, `../../.env.${env}`),
@@ -18,13 +17,7 @@ class Config {
   public readonly dbUrl: string;
   public readonly dbName: string;
 
-  private constructor(
-    appPort: number,
-    nodeEnv: string,
-    dbHost: string,
-    dbUrl: string,
-    dbName: string
-  ) {
+  private constructor(appPort: number, nodeEnv: string, dbHost: string, dbUrl: string, dbName: string) {
     this.appPort = appPort;
     this.nodeEnv = nodeEnv;
     this.dbHost = dbHost;
@@ -36,10 +29,7 @@ class Config {
     if (!Config.instance) {
       Config.instance = new Config(
         Config.getNumberEnvVar("APP_PORT", process.env.APP_PORT),
-        Config.getStringEnvVar("NODE_ENV", process.env.NODE_ENV, [
-          "development",
-          "production",
-        ]),
+        Config.getStringEnvVar("NODE_ENV", process.env.NODE_ENV, ["development", "production"]),
         Config.getStringEnvVar("DB_HOST", process.env.DB_HOST),
         Config.validateUrl(process.env.DB_URL),
         Config.getStringEnvVar("DB_NAME", process.env.DB_NAME)
@@ -48,39 +38,21 @@ class Config {
     return Config.instance;
   }
 
-  private static getNumberEnvVar(
-    key: string,
-    value?: string,
-    defaultValue: number = 0
-  ): number {
-    console.log(value);
-
+  private static getNumberEnvVar(key: string, value?: string, defaultValue: number = 0): number {
     const stringValue = value ?? defaultValue.toString();
-    console.log(stringValue, "hellpo");
-
     const parsed = parseInt(stringValue, 10);
     if (isNaN(parsed) || parsed < 0 || parsed > 65535) {
-      throw new Error(
-        `Environment variable ${key} must be a valid number between 0 and 65535.`
-      );
+      throw new Error(`Environment variable ${key} must be a valid number between 0 and 65535.`);
     }
     return parsed;
   }
 
-  private static getStringEnvVar(
-    key: string,
-    value?: string,
-    allowedValues?: string[]
-  ): string {
+  private static getStringEnvVar(key: string, value?: string, allowedValues?: string[]): string {
     if (value === undefined || value.trim() === "") {
       throw new Error(`Missing or empty required environment variable: ${key}`);
     }
     if (allowedValues && !allowedValues.includes(value.trim())) {
-      throw new Error(
-        `Environment variable ${key} must be one of the allowed values: ${allowedValues.join(
-          ", "
-        )}`
-      );
+      throw new Error(`Environment variable ${key} must be one of the allowed values: ${allowedValues.join(", ")}`);
     }
     return value.trim();
   }

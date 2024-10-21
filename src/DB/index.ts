@@ -1,7 +1,6 @@
 import mongoose, { Mongoose } from "mongoose";
 
-import Config from "../config/index.js";
-import chalk from "chalk";
+import Config from "../config/index";
 
 class DATABASE {
   private static instance: DATABASE;
@@ -23,18 +22,14 @@ class DATABASE {
     }
 
     const config = Config.getInstance();
+    const chalk = (await import("chalk")).default;
 
     const url = config.dbUrl;
     try {
       this.mongooseInstance = await mongoose.connect(url);
-      console.log(
-        chalk.magentaBright(`Connected to  the database: ${config.dbName} 🔥`)
-      );
+      console.log(chalk.magentaBright(`Connected to  the database: ${config.dbName} 🔥`));
     } catch (error) {
-      console.error(
-        `Error Connecting to the database: ${config.dbName} 😡`,
-        error
-      );
+      console.error(`Error Connecting to the database: ${config.dbName} 😡`, error);
       throw new Error(`Failed to connect to the database: ${config.dbName} 😡`);
     }
   }
@@ -47,9 +42,7 @@ class DATABASE {
   public async close(): Promise<void> {
     if (this.mongooseInstance) {
       await mongoose.disconnect();
-      console.log(
-        `Disconnected from the database: ${Config.getInstance().dbName} 🔥`
-      );
+      console.log(`Disconnected from the database: ${Config.getInstance().dbName} 🔥`);
     }
   }
 }
