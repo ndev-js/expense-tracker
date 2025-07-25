@@ -1,14 +1,19 @@
 import { Logger } from "winston";
 import IncomeService from "../../services/Income/Income.Service";
 import winston from "winston";
-import { createIncomeI } from "../../interfaces/Income/IncomeType";
-import { Request, Response } from "express";
+import { createIncomeI, incomeResI } from "../../interfaces/Income/IncomeType";
+import { NextFunction, Request, Response } from "express";
+import { HTTPStatusCode } from "../../constants/httpStatusCode";
+import { ResponseI } from "../../interfaces/Res/ResponseType";
+
+interface TypedRequestBody<T> extends Request {
+  body: T;
+}
 export default class IncomeController {
   private IncomeService: IncomeService;
   private logger: Logger;
-  constructor() {
-    console.log("hello");
 
+  constructor() {
     this.IncomeService = new IncomeService();
     this.logger = new Logger({
       level: "info",
@@ -22,23 +27,51 @@ export default class IncomeController {
     });
   }
 
-  async createIncome(req: Request, res: Response): Promise<any> {
+  async createIncome(req: TypedRequestBody<createIncomeI>, res: Response, next: NextFunction): Promise<any> {
     try {
-      const { userId, categoryId, amount, date, description } = req.body;
-      const payload: createIncomeI = {
-        userId: userId,
-        amount: amount,
-        date: date,
-        description: description,
-        categoryId: categoryId,
+      const income = await this.IncomeService.createUserIncome(req.body);
+      const response: ResponseI<createIncomeI> = {
+        status: HTTPStatusCode.Created,
+        success: true,
+        message: "Income created successfully",
+        data: income,
       };
-
-      const income = await this.IncomeService.createUserIncome(payload);
-      res.json(income);
+      res.json(response);
     } catch (error) {
-      console.log(error);
-      res.json(error);
       this.logger.error(error);
+      next(error);
+    }
+  }
+
+  async getAllIncomes(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const income = await this.IncomeService.getAllIncomes();
+      const response: ResponseI<createIncomeI[]> = {
+        status: HTTPStatusCode.Created,
+        success: true,
+        message: "Income created successfully",
+        data: income,
+      };
+      res.json(response);
+    } catch (error) {
+      this.logger.error(error);
+      next(error);
+    }
+  }
+
+  async getUserIncomes(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const income = await this.IncomeService.getUserIncomes(req.params.userId as string);
+      const response: ResponseI<createIncomeI[]> = {
+        status: HTTPStatusCode.Created,
+        success: true,
+        message: "Income created successfully",
+        data: income,
+      };
+      res.json(response);
+    } catch (error) {
+      this.logger.error(error);
+      next(error);
     }
   }
 }

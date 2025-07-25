@@ -21,6 +21,7 @@ const userSchema = new Schema<UserModelI>(
     expenses: {
       type: [Schema.Types.ObjectId],
       ref: "Expense",
+      default: [],
     },
     transactions: {
       type: [Schema.Types.ObjectId],

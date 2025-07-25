@@ -12,3 +12,80 @@
 2024-08-12T11:20:45.970Z [error]: Error creating user User already exists with this username
 2024-08-12T11:20:50.175Z [error]: Error creating user User already exists with this email
 2024-08-26T11:56:11.129Z [info]: Users fetched successfully
+2024-10-22T13:23:42.249Z [info]: Users fetched successfully
+2024-12-24T13:12:11.714Z [info]: Users fetched successfully
+2024-12-26T07:55:01.314Z [info]: Users fetched successfully
+2024-12-26T07:56:25.208Z [error]: Error creating user User already exists with this username
+2024-12-26T08:07:41.498Z [error]: Error creating user User already exists with this username
+2024-12-26T08:24:20.218Z [error]: Error creating user User already exists with this username
+2024-12-26T08:25:49.900Z [error]: Error creating user User already exists with this username
+2024-12-26T08:26:55.496Z [error]: Error creating user User already exists with this username
+2024-12-26T08:28:09.780Z [error]: Error creating user User already exists with this username
+2024-12-26T08:31:13.985Z [error]: Error creating user User already exists with this username
+2024-12-26T08:33:08.734Z [error]: Error creating user User already exists with this username
+2024-12-26T08:33:33.016Z [error]: Error creating user User already exists with this username
+2024-12-26T08:37:07.932Z [error]: Error creating user User already exists with this username
+2024-12-26T08:37:28.742Z [error]: Error creating user User already exists with this username
+2024-12-26T12:49:04.654Z [info]: Users fetched successfully
+2024-12-26T13:33:03.798Z [error]: Error fetching user User not found
+2024-12-26T13:33:24.838Z [error]: Error fetching user User not found
+2024-12-26T13:33:28.821Z [error]: Error fetching user User not found
+2024-12-26T13:35:32.155Z [error]: Error fetching user User not found
+2024-12-26T13:36:07.718Z [error]: Error fetching user User not found
+2024-12-26T13:53:37.628Z [error]: Error fetching user User not found
+2024-12-26T13:54:02.884Z [info]: User fetched successfully
+2024-12-26T13:56:37.665Z [info]: User fetched successfully
+2024-12-26T13:56:51.146Z [info]: User fetched successfully
+2024-12-27T11:50:26.447Z [info]: User fetched successfully
+2024-12-27T11:55:29.295Z [error]: Error fetching user User not found
+2024-12-27T11:55:52.789Z [info]: User fetched successfully
+2025-03-25T01:32:52.282Z [info]: Users fetched successfully
+2025-03-25T01:46:57.642Z [info]: Users fetched successfully
+2025-03-25T10:49:13.231Z [info]: Category created successfully
+2025-03-25T10:53:29.311Z [info]: Category created successfully
+2025-03-25T10:53:36.499Z [info]: Category created successfully
+2025-03-25T10:53:54.717Z [info]: Category created successfully
+2025-03-25T10:54:05.033Z [info]: Category created successfully
+2025-03-25T10:54:13.793Z [info]: Category created successfully
+2025-03-25T10:54:31.868Z [info]: Category created successfully
+2025-03-25T10:54:38.540Z [info]: Category created successfully
+2025-03-25T10:54:47.209Z [info]: Category created successfully
+2025-03-25T10:54:52.937Z [info]: Category created successfully
+2025-03-25T10:55:00.745Z [info]: Category created successfully
+2025-03-25T10:55:09.908Z [info]: Category created successfully
+2025-03-25T10:55:17.454Z [info]: Category created successfully
+2025-03-25T10:55:24.329Z [info]: Category created successfully
+2025-03-25T10:55:32.368Z [info]: Category created successfully
+2025-03-25T10:55:39.616Z [info]: Category created successfully
+2025-03-25T10:55:47.218Z [info]: Category created successfully
+2025-03-25T10:55:54.780Z [info]: Category created successfully
+2025-03-25T10:56:01.911Z [info]: Category created successfully
+2025-03-25T10:56:10.377Z [info]: Category created successfully
+2025-03-25T10:56:20.198Z [info]: Category created successfully
+2025-03-25T10:56:29.091Z [info]: Category created successfully
+2025-03-25T10:56:35.422Z [info]: Category created successfully
+2025-03-25T10:56:50.757Z [info]: Category created successfully
+2025-03-25T10:57:10.105Z [info]: Category created successfully
+2025-03-25T10:57:23.562Z [info]: Category created successfully
+2025-03-25T10:57:35.965Z [info]: Category created successfully
+2025-03-25T10:57:45.374Z [info]: Category created successfully
+2025-03-25T10:58:05.570Z [info]: Category created successfully
+2025-03-25T10:58:12.354Z [info]: Category created successfully
+2025-03-25T10:58:19.520Z [info]: Category created successfully
+2025-03-25T10:58:38.122Z [info]: Category created successfully
+2025-03-25T10:58:44.159Z [info]: Category created successfully
+2025-03-25T10:58:49.136Z [info]: Category created successfully
+2025-03-25T10:58:55.941Z [info]: Category created successfully
+2025-03-25T10:59:03.251Z [info]: Category created successfully
+2025-03-25T10:59:20.925Z [info]: Category created successfully
+2025-03-25T11:43:38.843Z [info]: Category created successfully
+2025-04-04T07:01:21.200Z [info]: Users fetched successfully
+2025-04-04T07:02:16.028Z [info]: Category created successfully
+2025-04-14T11:00:30.493Z [info]: Category created successfully
+2025-04-15T09:43:11.905Z [info]: Categories feteched successfully
+2025-04-15T10:12:52.029Z [info]: Categories feteched successfully
+2025-05-05T10:56:05.621Z [info]: Users fetched successfully
+2025-05-05T13:41:53.836Z [info]: Categories feteched successfully
+2025-05-05T13:42:04.364Z [info]: Category created successfully
+2025-05-05T13:42:15.782Z [info]: Category created successfully
+2025-05-05T13:42:20.359Z [info]: Categories feteched successfully

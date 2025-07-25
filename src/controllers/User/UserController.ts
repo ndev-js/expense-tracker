@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { Logger } from "../../utils/log/Logger"; // Adjust import path as per your project structure
 import AppError from "../../utils/ErrorHandler";
 import UserService from "../../services/User/User.Service";
@@ -10,8 +10,6 @@ export default class UserController {
   private logger: Logger;
 
   constructor() {
-    console.log("hello");
-
     this.userService = new UserService();
     this.logger = new Logger({
       level: "info",
@@ -25,7 +23,7 @@ export default class UserController {
     });
   }
 
-  async getAllUsers(req: Request, res: Response): Promise<void> {
+  async getAllUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const users = await this.userService.GetAllUsers();
       this.logger.info("Users fetched successfully", { users });
@@ -35,16 +33,34 @@ export default class UserController {
         users,
       });
     } catch (error: any) {
+      next(error);
       if (this.logger) {
         this.logger.error("Error fetching users", error);
       } else {
         console.error("Logger is not initialized:", error);
       }
-      throw new AppError(error.message, 500);
     }
   }
 
-  async createUser(req: Request, res: Response): Promise<any> {
+  async getUserById(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const user = await this.userService.GetUserById(req.params.userId);
+      this.logger.info("User fetched successfully", { user });
+      res.json({
+        success: true,
+        message: "User fetched successfully",
+        user,
+      });
+    } catch (error: any) {
+      next(error);
+      if (this.logger) {
+        this.logger.error("Error fetching user", error);
+      } else {
+        console.error("Logger is not initialized:", error);
+      }
+    }
+  }
+  async createUser(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const payload: UserI = {
         username: req.body.username,
@@ -54,20 +70,11 @@ export default class UserController {
       };
 
       const user = await this.userService.createUser(payload);
-      console.log(user, "------->");
-
-      if (user.data) {
-        this.logger.info("User created successfully", { user });
-        res.json(user);
-      } else {
-        const { status, message, error } = user;
-        this.logger.error("Error creating user:", { error });
-        res.status(status || 500).json({ message, error });
-      }
+      res.json(user);
     } catch (error) {
       console.log(error);
       this.logger.error("Error creating user", error);
-      res.json(error);
+      next(error);
     }
   }
 }

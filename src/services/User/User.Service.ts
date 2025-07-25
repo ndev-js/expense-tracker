@@ -1,40 +1,60 @@
-import { ResponseI } from "../../interfaces/Res/ResponseType";
+import { HTTPStatusCode } from "../../constants/httpStatusCode";
 import { createUserPayloadI, UserI } from "../../interfaces/User/UserType";
 import { User } from "../../models/User/UserSchema";
-import ResponseService from "../../utils/res/ResponseService";
-
+import createError from "http-errors";
 class UserService {
-  async createUser(Payload: createUserPayloadI): Promise<ResponseI> {
+  async createUser(Payload: createUserPayloadI): Promise<UserI> {
     try {
       const user = new User(Payload);
-
       const checkUser = await User.findOne({
         $or: [{ username: Payload.username }, { email: Payload.email }],
       });
-
       if (checkUser) {
         if (checkUser.username === Payload.username) {
-          return ResponseService.error("User already exists with this username");
+          throw createError(HTTPStatusCode.Conflict, "User already exists with this username");
         }
         if (checkUser.email) {
-          return ResponseService.error("User already exists with this email");
+          throw createError(HTTPStatusCode.Conflict, "User already exists with this email");
         }
       }
-
       const saveUser = await user.save();
-
-      return ResponseService.success("User created successfully", saveUser);
+      return saveUser;
     } catch (error: any) {
-      return ResponseService.internalServerError("internal server Error", error.message);
+      if (error.status && error.expose) {
+        throw error;
+      }
+      throw createError(HTTPStatusCode.InternalServerError, "An unexpected error occurred");
     }
   }
 
   async GetAllUsers(): Promise<UserI[]> {
     try {
-      const users = await User.find();
+      const users = await User.find().populate("expenses");
       return users;
     } catch (error: any) {
-      return error;
+      if (error.status && error.expose) {
+        throw error;
+      }
+      throw createError(HTTPStatusCode.InternalServerError, "An unexpected error occurred");
+    }
+  }
+
+  async GetUserById(payload: string): Promise<UserI> {
+    console.log(payload, "payload");
+
+    try {
+      const user = await User.findById(payload).populate("expenses");
+      console.log(user, "userid");
+
+      if (!user) {
+        throw createError(HTTPStatusCode.NotFound, "User not found");
+      }
+      return user;
+    } catch (error: any) {
+      if (error.status && error.expose) {
+        throw error;
+      }
+      throw createError(HTTPStatusCode.InternalServerError, "An unexpected error occurred");
     }
   }
 }

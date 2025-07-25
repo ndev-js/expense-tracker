@@ -1,7 +1,7 @@
 import { Document, Schema } from "mongoose";
 
 export interface UserModelI extends Document {
-  _id?: string;
+  _id: string;
   username: string;
   email: string;
   isActive: boolean;

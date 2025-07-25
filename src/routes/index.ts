@@ -1,13 +1,9 @@
-import categoryRoute from "./category/index";
-import IncomeRoute from "./Income/index";
-import UserRoute from "./User/index";
-import express from "express";
-const app = express.Router();
-
-console.log("entered");
-
-app.use(UserRoute);
-app.use(IncomeRoute);
+import categoryRoute from "./category.routes";
+import { userRoute, expenseRoute, incomeRoute } from "./routerExport";
+import { Router } from "express";
+const app = Router();
+app.use(userRoute);
+app.use(expenseRoute);
 app.use(categoryRoute);
-app.use(categoryRoute);
+app.use(incomeRoute);
 export default app;

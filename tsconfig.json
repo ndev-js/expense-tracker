@@ -5,6 +5,6 @@
     "outDir": "./dist",
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "constants/httpStatusCode.ts"],
   "exclude": ["node_modules", "dist"]
 }
